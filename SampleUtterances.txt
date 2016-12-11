@@ -1,0 +1,9 @@
+GetHalfStaffInfo Why is the flag at half staff
+GetHalfStaffInfo Why is the flag at half mast
+GetHalfStaffInfo Why is the flag at half staff {GivenDate}
+GetHalfStaffInfo Why is the flag at half mast {GivenDate}
+GetHalfStaffInfo test
+GetHalfStaffInfo Why was the flag at half staff {GivenDate}
+GetHalfStaffInfo Why was the flag at half mast {GivenDate}
+GetHalfStaffInfo Why was the flag at half staff on {GivenDate}
+GetHalfStaffInfo Why was the flag at half mast on {GivenDate}

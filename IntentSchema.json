@@ -1,0 +1,17 @@
+{
+  "intents": [
+    {
+      "intent": "GetHalfStaffInfo",
+      "name": "GetHalfStaffInfo",
+      "slots": [
+        {
+          "name": "GivenDate",
+          "type": "AMAZON.DATE"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+   }
+  ]
+}
