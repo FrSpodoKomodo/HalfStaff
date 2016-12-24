@@ -255,7 +255,7 @@ function GetFullMonth(year, month){
     }
     else{
         let yearPlusOne = monthAsInt + 1;
-       endDate = new Date(yearAsInt, monthAsInt, 1);
+       endDate = new Date(yearAsInt, monthAsInt+1, 1);
     }
     
     endDate.setDate(endDate.getDate() - 1);
