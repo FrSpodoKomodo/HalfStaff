@@ -243,19 +243,21 @@ function GetFullSeason(givenYear, season){
 
 function GetFullMonth(year, month){
     let yearAsInt = parseInt(year);
-    let monthAsInt = parseInt(month);
+    let monthAsInt = parseInt(month) -1;
     let endDay = 1;
     let startDate = new Date(yearAsInt, monthAsInt, 1);
+    let endDate = new Date(yearAsInt, monthAsInt, 1);
 
     if(monthAsInt == 11){
-        yearAsInt ++;
-        monthAsInt = 0;
+        let yearPlusOne = yearAsInt + 1;
+        endDate = new Date(yearPlusOne, 0, 1);
 
     }
     else{
-        monthAsInt ++;
+        let yearPlusOne = monthAsInt + 1;
+       endDate = new Date(yearAsInt, monthAsInt, 1);
     }
-    let endDate = new Date(yearAsInt, monthAsInt, 1);
+    
     endDate.setDate(endDate.getDate() - 1);
 
     let retDate = startDate.toLocaleDateString() + "-" + endDate.toLocaleDateString();
@@ -388,22 +390,25 @@ function GetHalfStaffInfo(intent, session, callback) {
               //  description += arr[i].substring(arr[i].indexOf("<description>")+13,arr[i].indexOf("</description>"));
               //  description += ",";
             //}
-            var state = title.substring(0, title.indexOf('-')-1);
-            var title = title.substring( title.indexOf('-')+1);
-            var stateName = GetStateName(state);
-            stateName += ", ";
-            var pubDate = arr[i].substring(arr[i].indexOf("<pubDate>") + 9, arr[i].indexOf("</pubDate>"));
-            var localeDate = new Date(pubDate).toLocaleDateString('en-US');
-            var tempObj = {'date': localeDate, 'title':title, 'state': stateName, 'description':description}
+            
+        
+           
+            
+            let pubDate = arr[i].substring(arr[i].indexOf("<pubDate>") + 9, arr[i].indexOf("</pubDate>"));
+            let localeDate = new Date(pubDate).toLocaleDateString('en-US');
+            var tempObj = {'date': localeDate, 'title':title,  'description':description}
             allFlagDataArray.push(tempObj);
             }
 
         }
         var returnString = '';
     for(var a in allFlagDataArray){
-        if(allFlagDataArray[a].date >= startDate && allFlagDataArray[a].date <= endDate){
+    let tempDate = new Date(allFlagDataArray[a].date);
+    let tempStart = new Date(startDate);
+    let tempEnd = new Date(endDate);
+        if(tempDate >= tempStart && tempDate <= tempEnd){
             
-            returnString += (allFlagDataArray[a].state + allFlagDataArray[a].title + allFlagDataArray[a].description)
+            returnString += (allFlagDataArray[a].date + ", " + allFlagDataArray[a].title + allFlagDataArray[a].description)
         }
     }
     
@@ -439,7 +444,7 @@ function onSessionStarted(sessionStartedRequest, session) {
 function onLaunch(launchRequest, session, callback) {
     
     console.log(`onLaunch requestId=${launchRequest.requestId}, sessionId=${session.sessionId}`);
-    http.get('http://halfstaff.us/rss/?x=rssFEED_URL',  (resp) => {
+    http.get('http://halfstaff.org/feed/',  (resp) => {
             var decoder = new StringDecoder('utf8');
            var temp = '';
           
